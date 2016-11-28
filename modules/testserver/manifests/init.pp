@@ -4,6 +4,7 @@ class testserver {
     default_vhost => false,
     user => 'www-data',
     group => 'www-data',
+    before => File['/var/www/cintest'],
   }
 
   apache::vhost { 'testsite':
@@ -13,7 +14,7 @@ class testserver {
 
   class { 'apache::mod::php': }
 
-  file { '/var/www/testsite':
+  file { '/var/www/cintest':
     ensure => directory,
     owner  => apache,
     group  => apache,
@@ -34,7 +35,7 @@ try {
 }
 ?>"
 
-  file { '/var/www/testsite/index.php':
+  file { '/var/www/cintest/index.php':
     ensure => present,
     #content => "<html>\n  <body>\n    HELLO WORLD! IT WORKS!!\n  </body>\n</html>",
     content => $str,
